@@ -1,0 +1,57 @@
+/* variables */
+
+/* reset */
+
+/* base styles */
+* {
+  margin: 0;
+  box-sizing: border-box;
+  background-color: grey;
+  color: white;
+  /* border: 1px solid blue; */
+}
+
+/* fonts */
+
+/* mobile styles */
+
+/* small tablet */
+@media screen and (min-width: 620px){
+
+}
+
+/* large tablet / laptop */
+@media screen and (min-width: 960px){
+
+}
+
+/* desktops */
+@media screen and (min-width: 1200px) {
+
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.side-panel {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-content: flex-start;
+  width: 100px;
+}
+
+.side-panel-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: 250px;
+}
+
+.viewport {
+  width: 100%;
+}
