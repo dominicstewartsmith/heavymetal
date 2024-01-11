@@ -1,4 +1,7 @@
+import Get from "../apiService"
+
 export default function Log() {
+
   return (
     <>
       <input type="date"></input>
