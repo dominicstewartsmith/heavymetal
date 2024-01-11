@@ -3,7 +3,8 @@ import {
   readMocks,
   refreshExercises,
   loadExerciseData,
-  createNewExercise
+  createNewExercise,
+  deleteExercise,
 } from "./controllers.js";
 import { Exercise } from "./models.js";
 
@@ -21,8 +22,26 @@ router.get("/loadall", async (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-  await createNewExercise(Exercise, req.body)
-  res.status(200).send("OK");
+  const response = await createNewExercise(Exercise, req.body);
+
+  if (response) {
+    //Success
+    res.status(201).send("Created");
+  } else {
+    //Fail
+    res.status(400).send("Bad");
+  }
+});
+
+router.delete("/delete", async (req, res) => {
+  const response = await deleteExercise(Exercise, req.body);
+  if (response) {
+    //Success
+    res.status(201).send("Deleted");
+  } else {
+    //Fail
+    res.status(400).send("Bad");
+  }
 });
 
 export default router;
