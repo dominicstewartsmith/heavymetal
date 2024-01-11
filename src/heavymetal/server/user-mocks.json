@@ -1,0 +1,10 @@
+[
+  {"date": 12345, "exercises": [
+    {"name": "bench press", "sets": [5,5,5,5], "weight": [100, 100, 80, 60]},
+    {"name": "fly", "sets": [12,12,12], "weight":[15, 15, 15]}
+  ]},
+  {"date": 23456, "exercises":[
+    {"name": "chin up", "sets": [4,4,4], "weight": [0, 0, 0]},
+    {"name": "deadlift", "sets": [3,3,3], "weight": [160, 160, 160]}
+  ]}
+]

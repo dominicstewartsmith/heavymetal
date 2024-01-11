@@ -1,0 +1,7 @@
+[
+  {"category": "Chest", "exercises": ["Barbell Bench Press", "Dumbbell Bench Press", "Dumbbell Flye", "Push Up"]},
+  {"category": "Back", "exercises": ["Chin Up", "Pull Up", "Barbell Row", "Lat Pulldown", "Seated Cable Row"]},
+  {"category": "Shoulders", "exercises": ["Barbell Overhead Press", "Seated Dumbbell Press", "Lateral Raise", "Facepulls"]},
+  {"category": "Legs", "exercises": ["Barbell Squat", "Leg Press", "Dumbbell Lunge", "Deadlift", "Romanian Deadlift"]},
+  {"category": "Arms", "exercises": ["Dumbbell Curl", "Barbell Curl", "Skullcrushers", "Rope Pushdown"]}
+]
