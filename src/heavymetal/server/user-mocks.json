@@ -1,10 +1,72 @@
 [
-  {"date": 12345, "exercises": [
-    {"name": "bench press", "sets": [5,5,5,5], "weight": [100, 100, 80, 60]},
-    {"name": "fly", "sets": [12,12,12], "weight":[15, 15, 15]}
-  ]},
-  {"date": 23456, "exercises":[
-    {"name": "chin up", "sets": [4,4,4], "weight": [0, 0, 0]},
-    {"name": "deadlift", "sets": [3,3,3], "weight": [160, 160, 160]}
-  ]}
+  {
+    "date": "2024-01-01",
+    "data": [
+      {
+        "category": "Chest",
+        "exercises": [
+          {
+            "name": "Bench Press",
+            "weight": [100, 100, 100],
+            "reps": [5,5,5]
+          },
+          {
+            "name": "Push Up",
+            "weight": [0, 0, 0],
+            "reps": [25, 25, 25]
+          }
+        ]
+      },
+      {
+        "category": "Shoulders",
+        "exercises": [
+          {
+            "name": "Barbell Overhead Press",
+            "weight": [60, 60, 60],
+            "reps": [5, 5, 5]
+          },
+          {
+            "name": "Lateral Raise",
+            "weight": [10, 10, 10],
+            "reps": [15, 15, 15]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "date": "2024-11-02",
+    "data": [
+      {
+        "category": "Legs",
+        "exercises": [
+          {
+            "name": "Barbell Squat",
+            "weight": [100, 100, 100],
+            "reps": [5,5,5]
+          },
+          {
+            "name": "Deadlift",
+            "weight": [0, 0, 0],
+            "reps": [25, 25, 25]
+          }
+        ]
+      },
+      {
+        "category": "Back",
+        "exercises": [
+          {
+            "name": "Chin Up",
+            "weight": [60, 60, 60],
+            "reps": [5, 5, 5]
+          },
+          {
+            "name": "Barbell Row",
+            "weight": [10, 10, 10],
+            "reps": [15, 15, 15]
+          }
+        ]
+      }
+    ]
+  }
 ]

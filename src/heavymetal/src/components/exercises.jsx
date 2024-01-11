@@ -1,7 +1,7 @@
 import apiGet, { apiAddExercise, apiDeleteExercise } from "../apiService";
 import { useState, useEffect } from "react";
 
-export default function Exercises() {
+export default function Exercises({ date }) {
   const [allData, setAllData] = useState([]);
   const [displayData, setDisplayData] = useState([]);
 
@@ -75,6 +75,12 @@ export default function Exercises() {
     }
   }
 
+  function handleAddToLog(obj) {
+    //send post request with obj and date
+    //append to the date the exercise
+  }
+
+  //TODO add loading stage/if no server
   useEffect(() => {
     async function loadExercises() {
       try {
@@ -110,7 +116,7 @@ export default function Exercises() {
             return (
               <li key={item}>
                 {item}
-                <button>Add to log</button>
+                <button onClick={() => handleAddToLog({currentCategory, exercise: item})}>Add to log</button>
                 <button onClick={() => handleDeleteExercise(item)}>
                   Delete from database
                 </button>

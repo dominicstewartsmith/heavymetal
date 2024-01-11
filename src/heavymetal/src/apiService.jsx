@@ -3,8 +3,13 @@ export default async function apiGet(route) {
   return data;
 }
 
+export async function apiGetLog(date) {
+  const data = (await fetch("http://localhost:3000/logload/" + date)).json();
+  return data;
+}
+
 export async function apiAddExercise(body) {
-  body = JSON.stringify(body)
+  body = JSON.stringify(body);
 
   await fetch("http://localhost:3000/add", {
     method: "POST",
@@ -17,7 +22,7 @@ export async function apiAddExercise(body) {
 }
 
 export async function apiDeleteExercise(body) {
-  body = JSON.stringify(body)
+  body = JSON.stringify(body);
 
   await fetch("http://localhost:3000/delete", {
     method: "DELETE",

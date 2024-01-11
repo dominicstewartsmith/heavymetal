@@ -1,20 +1,40 @@
 import { readFile, readFileSync } from "fs";
 import * as url from "url";
+import { Log } from "./models.js";
 
 //TODO Prevent requests with undefined exercises
 //TODO Prevent requests with non Latin chars
 
 function readMocks() {
-  let data = readFileSync(
+  let exerciseData = readFileSync(
     url.fileURLToPath(new URL(".", import.meta.url) + "./exercises.json"),
     "utf-8"
   );
-  data = JSON.parse(data);
+  exerciseData = JSON.parse(data);
   return data;
 }
 
 function refreshExercises(model, data) {
   //clear the database and then refresh it with the mock data
+  model.deleteMany({}).then(() => {
+    data.forEach(async (item) => {
+      await model.create(item);
+    });
+  });
+}
+
+function readLogMocks() {
+  let exerciseData = readFileSync(
+    url.fileURLToPath(new URL(".", import.meta.url) + "./user-mocks.json"),
+    "utf-8"
+  );
+  exerciseData = JSON.parse(exerciseData);
+  return exerciseData;
+}
+
+function generateLogMocks(model) {
+  const data = readLogMocks();
+
   model.deleteMany({}).then(() => {
     data.forEach(async (item) => {
       await model.create(item);
@@ -30,6 +50,11 @@ async function loadExerciseData(model, category) {
   return category
     ? await model.findOne({ category: category })
     : await model.find({});
+}
+
+async function loadLogData(date) {
+  console.log("Log data requested from server.");
+  return await Log.find({ date });
 }
 
 async function createNewExercise(model, { category, exercises }) {
@@ -79,4 +104,6 @@ export {
   loadExerciseData,
   createNewExercise,
   deleteExercise,
+  generateLogMocks,
+  loadLogData,
 };

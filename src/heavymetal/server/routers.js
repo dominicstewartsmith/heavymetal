@@ -5,14 +5,26 @@ import {
   loadExerciseData,
   createNewExercise,
   deleteExercise,
+  generateLogMocks,
+  loadLogData,
 } from "./controllers.js";
-import { Exercise } from "./models.js";
+import { Exercise, Log } from "./models.js";
 
 const router = Router();
 
 router.get("/refresh", (req, res) => {
   refreshExercises(Exercise, readMocks());
   res.status(200).send("Mocks created");
+});
+
+router.get("/logrefresh", (req, res) => {
+  generateLogMocks(Log);
+  res.status(200).send("Mocks created");
+});
+
+router.get("/logload/:date", async (req, res) => {
+  let data = await loadLogData(req.params.date);
+  res.status(200).send(data);
 });
 
 router.get("/loadall", async (req, res) => {
@@ -23,6 +35,7 @@ router.get("/loadall", async (req, res) => {
 
 router.post("/add", async (req, res) => {
   const response = await createNewExercise(Exercise, req.body);
+  console.log("Insertion requested for ", req.body);
 
   if (response) {
     //Success
@@ -33,8 +46,11 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.post("/logadd", async (req, res) => {});
+
 router.delete("/delete", async (req, res) => {
   const response = await deleteExercise(Exercise, req.body);
+  console.log("Deletion requested for ", req.body);
   if (response) {
     //Success
     res.status(201).send("Deleted");
