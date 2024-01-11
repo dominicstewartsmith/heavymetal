@@ -1,6 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
-import Log from './log';
-import Exercises from './exercises';
+import Log from './log.jsx';
+import Exercises from './exercises.jsx';
 
 export default function ViewPort() {
   return (

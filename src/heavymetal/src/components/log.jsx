@@ -1,4 +1,3 @@
-import Get from "../apiService"
 
 export default function Log() {
 

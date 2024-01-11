@@ -6,7 +6,8 @@ import {mongoose} from './models.js'
 const app = express();
 
 app.use(cors())
-   .use(router)
+   .use(express.json())
+   .use(router);
 
 mongoose
   .connect("mongodb://localhost:27017/heavymetal")
