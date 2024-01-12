@@ -48,13 +48,13 @@ async function loadExerciseData(model, category) {
 
   console.log("Exercise data requested from server.");
   return category
-    ? await model.findOne({ category: category })
-    : await model.find({});
+    ? await model.findOne({ category: category }).exec()
+    : await model.find({}).exec();
 }
 
 async function loadLogData(date) {
   console.log("Log data requested from server.");
-  return await Log.find({ date });
+  return await Log.find({ date }).exec();
 }
 
 async function createNewExercise(model, { category, exercises }) {
@@ -67,7 +67,6 @@ async function createNewExercise(model, { category, exercises }) {
       { category: category },
       { $push: { exercises: exercises } }
     );
-    "Created", { category, exercises };
     return true;
   } else {
     //It's already in the DB so reject the request

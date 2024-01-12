@@ -25,7 +25,11 @@ export default function ViewPort() {
 
   useEffect(() => {
     async function loadLog() {
-      setLog(await apiGetLog('2024-11-02'))
+      //Mongoose returns the result in an array,
+      //but because we are only finding a single document just split out the 0th element
+      //and send the data property as the prop, making handling the mapping a bit cleaner the Log component
+      const result = (await apiGetLog('2024-11-02'))[0].data;
+      setLog(result)
     }
 
     loadLog();
@@ -33,7 +37,7 @@ export default function ViewPort() {
 
   return (
     <Routes>
-      <Route path="/" element={<Log date={date} setDate={setDate} log={log}/>} />
+      <Route path="/" element={<Log date={date} setDate={setDate} log={log} setLog={setLog}/>} />
       <Route path="/mgmt" element={<Exercises date={date} />} />
     </Routes>
   );
