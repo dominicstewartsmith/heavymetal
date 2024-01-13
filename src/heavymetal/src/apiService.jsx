@@ -64,4 +64,17 @@ export async function apiDeleteFromLog(data) {
   });
 }
 
+export async function apiAddNewSet (data) {
+  data = JSON.stringify(data);
+
+  await fetch(PATH + "addNewSet", {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  });
+}
+
 export async function apiRemoveFromLog(data) {}

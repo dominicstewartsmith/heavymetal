@@ -8,7 +8,8 @@ import {
   generateLogMocks,
   loadLogData,
   addToLog,
-  deleteFromLog
+  deleteFromLog,
+  addNewSet,
 } from "./controllers.js";
 import { Exercise, Log } from "./models.js";
 
@@ -50,6 +51,11 @@ router.post("/addNew", async (req, res) => {
 
 router.put("/addLog", async (req, res) => {
   await addToLog(req.body);
+  res.status(200).send("OK");
+});
+
+router.put("/addNewSet", async (req, res) => {
+  await addNewSet(req.body);
   res.status(200).send("OK");
 });
 

@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { apiGetExerciseData, apiGetLogData, apiDeleteFromLog } from "../apiService";
+import {
+  apiGetExerciseData,
+  apiGetLogData,
+  apiDeleteFromLog,
+  apiAddNewSet,
+} from "../apiService";
 
 export default function Log({
   date,
@@ -8,20 +13,26 @@ export default function Log({
   setLog,
   generateDateString,
 }) {
+  const [selectedExercise, setSelectedExercise] = useState({});
   const [selectedExerciseSets, setSelectedExerciseSets] = useState({}); //the weights and reps for the currently selected exercise
+  const [nextSet, setNextSet] = useState(["", ""]);
 
   const exercisesForCurrentDate = log.map((item) => item.exercises).flat(); //All exercises for the selected day as a flat array
   const exercisesForCurrentDateComponentConstructor =
     exercisesForCurrentDate.map((item) => {
       return (
         <div key={item.name}>
-          <button onClick={() => handleDeleteFromLog({
-                      date,
-                      name: item.name,
-                    })}>-</button>
-          <button onClick={handleSelectedExercise}>
-            {item.name}
+          <button
+            onClick={() =>
+              handleDeleteFromLog({
+                date,
+                name: item.name,
+              })
+            }
+          >
+            -
           </button>
+          <button onClick={handleSelectedExercise}>{item.name}</button>
         </div>
       );
     });
@@ -52,14 +63,54 @@ export default function Log({
 
   function handleSelectedExercise(e) {
     for (let i of exercisesForCurrentDate) {
-      if (i.name == e.target.innerHTML)
-        setSelectedExerciseSets({ weight: i.weight, reps: i.reps });
+      if (i.name == e.target.innerHTML) setSelectedExercise(i.name);
+      setSelectedExerciseSets({ weight: i.weight, reps: i.reps });
     }
   }
 
   async function handleDeleteFromLog(data) {
     await apiDeleteFromLog(data);
-    await reloadLog(date)
+    await reloadLog(date);
+  }
+
+  async function handleNewSet() {
+    if (nextSet[0] != "" || nextSet[1] != "") {
+      const data = {
+        date,
+        name: selectedExercise,
+        weight: nextSet[0],
+        reps: nextSet[1],
+      };
+
+      //Send update to server
+      await apiAddNewSet(data);
+      //Re-load log
+    }
+  }
+
+  function handleNewSetChange(event, field) {
+    //Sanitise the user input to only allow digits.
+    let current = event.target.value;
+    const forbiddenChars = /[^\d]/g;
+
+    if (forbiddenChars.test(current)) {
+      alert("You may only enter digits!");
+    } else {
+      current = Number(current);
+      setNextSet((prev) => {
+        let update = [];
+
+        if (field == 0) {
+          update[0] = current;
+          update[1] = prev[1];
+        } else {
+          update[0] = prev[0];
+          update[1] = current;
+        }
+
+        return update;
+      });
+    }
   }
 
   let selectedExerciseComponentConstructor = [];
@@ -78,9 +129,26 @@ export default function Log({
         />
       );
     }
-  }
 
-  // if (loading) return <h1>Loading</h1>
+    const addNewSetInput = (
+      <section key={"inputControls"}>
+        Weight
+        <input
+          type="text"
+          value={nextSet[0]}
+          onChange={(e) => handleNewSetChange(e, 0)}
+        ></input>
+        Reps
+        <input
+          type="text"
+          value={nextSet[1]}
+          onChange={(e) => handleNewSetChange(e, 1)}
+        ></input>
+        <button onClick={handleNewSet}>Save Set</button>
+      </section>
+    );
+    selectedExerciseComponentConstructor.push(addNewSetInput);
+  }
 
   return (
     <>
@@ -128,14 +196,14 @@ function Set({
   function handleChange() {
     //send update request to the server
   }
+
   function handleRemoveSet() {
+    //TODO send server update request
     let update = { ...selectedExerciseSets };
     update.weight.splice(id, 1);
     update.reps.splice(id, 1);
 
     setSelectedExerciseSets(update);
-
-    //If you remove the final set, also remove the exercise
   }
 
   return (

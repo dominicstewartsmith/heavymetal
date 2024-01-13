@@ -58,6 +58,10 @@ async function loadLogData(date) {
 }
 
 async function addToLog(data) {
+  console.log(
+    `Log insertion for ${data.date} requested: ${JSON.stringify(data)}`
+  );
+
   let logForDateExists = await Log.findOne({ date: data.date });
   let queryResponse;
 
@@ -106,10 +110,14 @@ async function addToLog(data) {
 }
 
 async function deleteFromLog(data) {
+  console.log(
+    `Log deletion for ${data.date} requested: ${JSON.stringify(data)}`
+  );
+
   const alreadyExists = await Log.find({ date: data.date });
-  
+
   if (alreadyExists) {
-    const queryResponse = await Log.updateMany(
+    const queryResponse = await Log.updateOne(
       { date: data.date },
       { $pull: { "data.$[].exercises": { name: data.name } } }
     );
@@ -147,6 +155,34 @@ async function deleteExercise(model, { category, exercises }) {
   return true;
 }
 
+async function addNewSet(data) {
+  console.log(data);
+
+  console.log(
+    `Set update for ${data.name} / ${data.date} requested.`
+  );
+
+  const alreadyExists = await Log.findOne({ date: data.date });
+
+  if (alreadyExists) {
+    const queryResponse = await Log.updateOne(
+      { date: data.date },
+      { $push:
+        {
+          "data.$[categoryElem].exercises.$[exerciseElem].weight": data.weight,
+          "data.$[categoryElem].exercises.$[exerciseElem].reps": data.reps
+        }
+      },
+      {
+        arrayFilters: [
+          {"categoryElem.category": {$exists: true}},
+          {"exerciseElem.name": data.name}
+        ]
+      }
+    );
+  }
+}
+
 async function checkIfExerciseAlreadyExists(model, exercise) {
   //Although this is also handled on the front end, we must also prevent
   //against direct http requests
@@ -166,4 +202,5 @@ export {
   loadLogData,
   addToLog,
   deleteFromLog,
+  addNewSet,
 };
