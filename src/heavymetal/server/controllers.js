@@ -105,6 +105,17 @@ async function addToLog(data) {
   }
 }
 
+async function deleteFromLog(data) {
+  const alreadyExists = await Log.find({ date: data.date });
+  
+  if (alreadyExists) {
+    const queryResponse = await Log.updateMany(
+      { date: data.date },
+      { $pull: { "data.$[].exercises": { name: data.name } } }
+    );
+  }
+}
+
 async function createNewExercise(model, { category, exercises }) {
   //Verify that this is a new exercise.
   const alreadyExists = await checkIfExerciseAlreadyExists(model, exercises);
@@ -154,4 +165,5 @@ export {
   generateLogMocks,
   loadLogData,
   addToLog,
+  deleteFromLog,
 };

@@ -51,4 +51,17 @@ export async function apiAddToLog(data) {
   });
 }
 
+export async function apiDeleteFromLog(data) {
+  data = JSON.stringify(data);
+
+  await fetch(PATH + "deleteLog", {
+    method: "DELETE",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data,
+  });
+}
+
 export async function apiRemoveFromLog(data) {}

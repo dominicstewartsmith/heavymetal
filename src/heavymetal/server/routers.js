@@ -7,7 +7,8 @@ import {
   deleteExercise,
   generateLogMocks,
   loadLogData,
-  addToLog
+  addToLog,
+  deleteFromLog
 } from "./controllers.js";
 import { Exercise, Log } from "./models.js";
 
@@ -48,8 +49,13 @@ router.post("/addNew", async (req, res) => {
 });
 
 router.put("/addLog", async (req, res) => {
-  await addToLog(req.body)
-  res.status(200).send('OK')
+  await addToLog(req.body);
+  res.status(200).send("OK");
+});
+
+router.delete("/deleteLog", async (req, res) => {
+  await deleteFromLog(req.body);
+  res.status(200).send("OK");
 });
 
 router.delete("/delete", async (req, res) => {

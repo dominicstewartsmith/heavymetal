@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiGetExerciseData, apiGetLogData } from "../apiService";
+import { apiGetExerciseData, apiGetLogData, apiDeleteFromLog } from "../apiService";
 
 export default function Log({
   date,
@@ -10,32 +10,19 @@ export default function Log({
 }) {
   const [selectedExerciseSets, setSelectedExerciseSets] = useState({}); //the weights and reps for the currently selected exercise
 
-  // let exercisesForCurrentDate = [];
-  // let exercisesForCurrentDateComponentConstructor = [];
-
-  // if (log.length > 0) {
-  //   console.log('log', log)
-  //   exercisesForCurrentDate = log.map((item) => item.exercises).flat(); //All exercises object for the selected day as a flat array
-  //   console.log('flat array', exercisesForCurrentDate)
-  //   exercisesForCurrentDateComponentConstructor = exercisesForCurrentDate.map(
-  //     (item) => {
-  //       console.log('name', item.name)
-  //       return (
-  //         <button key={item.name} onClick={handleSelectedExercise}>
-  //           {item.name}
-  //         </button>
-  //       );
-  //     }
-  //   );
-  // }
-
   const exercisesForCurrentDate = log.map((item) => item.exercises).flat(); //All exercises for the selected day as a flat array
   const exercisesForCurrentDateComponentConstructor =
     exercisesForCurrentDate.map((item) => {
       return (
-        <button key={item?.name} onClick={handleSelectedExercise}>
-          {item?.name}
-        </button>
+        <div key={item.name}>
+          <button onClick={() => handleDeleteFromLog({
+                      date,
+                      name: item.name,
+                    })}>-</button>
+          <button onClick={handleSelectedExercise}>
+            {item.name}
+          </button>
+        </div>
       );
     });
 
@@ -68,6 +55,11 @@ export default function Log({
       if (i.name == e.target.innerHTML)
         setSelectedExerciseSets({ weight: i.weight, reps: i.reps });
     }
+  }
+
+  async function handleDeleteFromLog(data) {
+    await apiDeleteFromLog(data);
+    await reloadLog(date)
   }
 
   let selectedExerciseComponentConstructor = [];
