@@ -59,14 +59,17 @@ async function loadLogData(date) {
 
 async function addToLog(data) {
   let logForDateExists = await Log.findOne({ date: data.date });
-  console.log(logForDateExists);
+  let queryResponse;
 
   //Only update if there is data for this date, otherwise create a new document
   if (logForDateExists) {
     //Check if we have already logged any exercises for the selected category
-    console.log('VALUES', Object.values(logForDateExists.data).map(x => x.category))
-    if (Object.values(logForDateExists.data).map(x => x.category).includes(data.category)) {
-      await Log.updateOne(
+    if (
+      Object.values(logForDateExists.data)
+        .map((x) => x.category)
+        .includes(data.category)
+    ) {
+      queryResponse = await Log.updateOne(
         { date: data.date, "data.category": data.category },
         {
           $push: {
@@ -76,7 +79,7 @@ async function addToLog(data) {
       );
     } else {
       //Data for this date exists, but no exercises for this category
-      await Log.updateOne(
+      queryResponse = await Log.updateOne(
         { date: data.date },
         {
           $push: {
@@ -90,7 +93,7 @@ async function addToLog(data) {
     }
   } else {
     //Create a new document for this date
-    await Log.create({
+    queryResponse = await Log.create({
       date: data.date,
       data: [
         {

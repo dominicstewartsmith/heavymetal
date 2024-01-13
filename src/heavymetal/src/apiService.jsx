@@ -51,7 +51,4 @@ export async function apiAddToLog(data) {
   });
 }
 
-export async function apiRemoveFromLog(data) {
-
-}
-
+export async function apiRemoveFromLog(data) {}

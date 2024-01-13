@@ -82,9 +82,9 @@ export default function Exercises({ date, log, setLog }) {
   }
 
   async function handleAddToLog(data) {
-    console.log(date);
     await apiAddToLog(data);
-    setLog(await apiGetLogData(date));
+    const reloadLog = await apiGetLogData(date);
+    setLog(reloadLog[0].data);
   }
 
   //TODO add loading stage/if no server
