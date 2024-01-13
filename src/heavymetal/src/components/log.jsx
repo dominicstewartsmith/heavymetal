@@ -33,8 +33,8 @@ export default function Log({
   const exercisesForCurrentDateComponentConstructor =
     exercisesForCurrentDate.map((item) => {
       return (
-        <button key={item.name} onClick={handleSelectedExercise}>
-          {item.name}
+        <button key={item?.name} onClick={handleSelectedExercise}>
+          {item?.name}
         </button>
       );
     });

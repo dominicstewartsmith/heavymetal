@@ -3,7 +3,7 @@ import {
   apiAddNewExercise,
   apiDeleteExercise,
   apiAddToLog,
-  apiGetLogData
+  apiGetLogData,
 } from "../apiService";
 import { useState, useEffect } from "react";
 
@@ -82,8 +82,9 @@ export default function Exercises({ date, log, setLog }) {
   }
 
   async function handleAddToLog(data) {
-    await apiAddToLog(data)
-    setLog(await apiGetLogData(date))
+    console.log(date);
+    await apiAddToLog(data);
+    setLog(await apiGetLogData(date));
   }
 
   //TODO add loading stage/if no server
