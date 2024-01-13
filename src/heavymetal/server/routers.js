@@ -7,6 +7,7 @@ import {
   deleteExercise,
   generateLogMocks,
   loadLogData,
+  addToLog
 } from "./controllers.js";
 import { Exercise, Log } from "./models.js";
 
@@ -22,18 +23,18 @@ router.get("/logrefresh", (req, res) => {
   res.status(200).send("Mocks created");
 });
 
-router.get("/logload/:date", async (req, res) => {
+router.get("/log/:date", async (req, res) => {
   let data = await loadLogData(req.params.date);
   res.status(200).send(data);
 });
 
-router.get("/loadall", async (req, res) => {
+router.get("/exercises", async (req, res) => {
   let data = await loadExerciseData(Exercise);
   data = JSON.stringify(data);
   res.status(200).send(data);
 });
 
-router.post("/add", async (req, res) => {
+router.post("/addNew", async (req, res) => {
   const response = await createNewExercise(Exercise, req.body);
   console.log("Insertion requested for ", req.body);
 
@@ -46,7 +47,10 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.post("/logadd", async (req, res) => {});
+router.put("/addLog", async (req, res) => {
+  await addToLog(req.body)
+  res.status(200).send('OK')
+});
 
 router.delete("/delete", async (req, res) => {
   const response = await deleteExercise(Exercise, req.body);

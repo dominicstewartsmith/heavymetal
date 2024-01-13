@@ -1,7 +1,13 @@
-import apiGet, { apiAddExercise, apiDeleteExercise } from "../apiService";
+import {
+  apiGetExerciseData,
+  apiAddNewExercise,
+  apiDeleteExercise,
+  apiAddToLog,
+  apiGetLogData
+} from "../apiService";
 import { useState, useEffect } from "react";
 
-export default function Exercises({ date }) {
+export default function Exercises({ date, log, setLog }) {
   const [allData, setAllData] = useState([]);
   const [displayData, setDisplayData] = useState([]);
 
@@ -20,7 +26,7 @@ export default function Exercises({ date }) {
 
       //TODO - verify that the data was actually added and only then update the hook
       //atm it re-renders even if the data failed to add
-      await apiAddExercise(body);
+      await apiAddNewExercise(body);
 
       //Update the hook containing all the data, so that the list re-renders
       //only refreshes visually, doesnt re-query db
@@ -75,16 +81,16 @@ export default function Exercises({ date }) {
     }
   }
 
-  function handleAddToLog(obj) {
-    //send post request with obj and date
-    //append to the date the exercise
+  async function handleAddToLog(data) {
+    await apiAddToLog(data)
+    setLog(await apiGetLogData(date))
   }
 
   //TODO add loading stage/if no server
   useEffect(() => {
     async function loadExercises() {
       try {
-        const data = await apiGet();
+        const data = await apiGetExerciseData();
         data.forEach((category) => category.exercises.sort());
 
         setAllData(data);
@@ -116,7 +122,17 @@ export default function Exercises({ date }) {
             return (
               <li key={item}>
                 {item}
-                <button onClick={() => handleAddToLog({currentCategory, exercise: item})}>Add to log</button>
+                <button
+                  onClick={() =>
+                    handleAddToLog({
+                      date,
+                      category: currentCategory,
+                      name: item,
+                    })
+                  }
+                >
+                  Add to log
+                </button>
                 <button onClick={() => handleDeleteExercise(item)}>
                   Delete from database
                 </button>

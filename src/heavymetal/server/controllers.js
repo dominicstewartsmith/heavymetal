@@ -53,8 +53,35 @@ async function loadExerciseData(model, category) {
 }
 
 async function loadLogData(date) {
-  console.log("Log data requested from server.");
+  console.log(`Log data requested from server for ${date}.`);
   return await Log.find({ date }).exec();
+}
+
+async function addToLog(data) {
+  let logForDateExists = await Log.findOne({ date: data.date });
+
+  if (logForDateExists) {
+    //Only update if there is data for this date
+    await Log.updateOne(
+      { date: data.date, "data.category": data.category },
+      {
+        $push: {
+          "data.$.exercises": { name: data.name, weight: [], reps: [] },
+        },
+      }
+    );
+  } else {
+    //Create a new document for this date
+    await Log.create({
+      date: data.date,
+      data: [
+        {
+          category: data.category,
+          exercises: [{ name: data.name, weight: [], reps: [] }],
+        },
+      ],
+    });
+  }
 }
 
 async function createNewExercise(model, { category, exercises }) {
@@ -105,4 +132,5 @@ export {
   deleteExercise,
   generateLogMocks,
   loadLogData,
+  addToLog,
 };
