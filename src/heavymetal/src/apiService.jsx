@@ -64,7 +64,7 @@ export async function apiDeleteFromLog(data) {
   });
 }
 
-export async function apiAddNewSet (data) {
+export async function apiAddNewSet(data) {
   data = JSON.stringify(data);
 
   await fetch(PATH + "addNewSet", {
@@ -77,7 +77,7 @@ export async function apiAddNewSet (data) {
   });
 }
 
-export async function apiUpdateSet (data) {
+export async function apiUpdateSet(data) {
   data = JSON.stringify(data);
 
   await fetch(PATH + "updateSet", {
@@ -90,7 +90,7 @@ export async function apiUpdateSet (data) {
   });
 }
 
-export async function apiDeleteSet (data) {
+export async function apiDeleteSet(data) {
   data = JSON.stringify(data);
 
   await fetch(PATH + "deleteSet", {
@@ -102,4 +102,3 @@ export async function apiDeleteSet (data) {
     body: data,
   });
 }
-

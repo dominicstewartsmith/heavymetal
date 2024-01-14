@@ -1,7 +1,10 @@
+import { apiUpdateSet, apiDeleteSet } from "../apiService";
+
 export default function Set({
+  date,
   id,
   selectedExercise,
-  setSelectedExercise
+  setSelectedExercise,
 }) {
   //Component to render each set of the current exercise
 
@@ -10,7 +13,8 @@ export default function Set({
     if (
       !(
         action === "-" &&
-        ((type === "weight" && selectedExercise.weight[id] === 0) || (type === "reps" && selectedExercise.reps[id] === 1))
+        ((type === "weight" && selectedExercise.weight[id] === 0) ||
+          (type === "reps" && selectedExercise.reps[id] === 1))
       )
     ) {
       let update = { ...selectedExercise };
@@ -20,38 +24,60 @@ export default function Set({
     }
   }
 
-  function handleChange(event, type) {
-    //TODO send update request to the server
-
-    const forbiddenChars = /[^\d]/g
+  async function handleChange(event, type) {
+    const forbiddenChars = /[^\d]/g;
     if (forbiddenChars.test(event.target.value)) {
-      alert('You may only enter digits!')
+      alert("You may only enter digits!");
     } else {
-      let update = {...selectedExercise};
-      if (type == 'weight') update.weight[id] = event.target.value
-      if (type == 'reps') update.reps[id] = event.target.value
-      setSelectedExercise(update)
+      let update = { ...selectedExercise };
+      if (type == "weight") update.weight[id] = Number(event.target.value);
+      if (type == "reps") update.reps[id] = Number(event.target.value);
+      setSelectedExercise(update);
+
+      await apiUpdateSet({
+        date,
+        name: update.name,
+        index: id,
+        weight: update.weight[id],
+        reps: update.reps[id],
+      });
     }
   }
 
-  function handleRemoveSet() {
-    //TODO send server update request
+  async function handleRemoveSet() {
     let update = { ...selectedExercise };
     update.weight.splice(id, 1);
     update.reps.splice(id, 1);
 
     setSelectedExercise(update);
+
+    await apiDeleteSet({
+      date,
+      name: update.name,
+      weight: update.weight,
+      reps: update.reps,
+    });
   }
 
   return (
     <>
       <div>
         Weight
-        <input type="text" value={selectedExercise.weight[id]} min="0" onChange={(e) => handleChange(e, 'weight')}/>
+        <input
+          type="text"
+          value={selectedExercise.weight[id]}
+          min="0"
+          onChange={(e) => handleChange(e, "weight")}
+        />
         <button onClick={() => handleClick("+", 1, "weight")}>+</button>
         <button onClick={() => handleClick("-", 1, "weight")}>-</button>
         Reps
-        <input type="text" value={selectedExercise.reps[id]} min="1" onChange={(e) => handleChange(e, 'reps')}/>
+        <input
+          type="text"
+          value={selectedExercise.reps[id]}
+          min="1"
+          onChange={(e) => handleChange(e, "reps")}
+        />
         <button onClick={() => handleClick("+", 1, "reps")}>+</button>
         <button onClick={() => handleClick("-", 1, "reps")}>-</button>
         <button onClick={handleRemoveSet}>Remove Set</button>
