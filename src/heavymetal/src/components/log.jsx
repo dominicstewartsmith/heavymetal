@@ -100,6 +100,7 @@ export default function Log({
         {/* Load the Set container here */}
         {Object.keys(selectedExercise).length > 0 && (
           <SetContainer
+            date={date}
             selectedExercise={selectedExercise}
             setSelectedExercise={setSelectedExercise}
           />

@@ -83,10 +83,12 @@ export default function Exercises({ date, log, setLog }) {
 
   async function handleAddToLog(data) {
     //Forbid adding the same exercise twice
-    const exerciseList = log.map((exercises) => exercises.exercises.map(name => name.name)).flat()
+    const exerciseList = log
+      .map((exercises) => exercises.exercises.map((name) => name.name))
+      .flat();
 
     if (exerciseList.includes(data.name)) {
-      alert('Each exercise may only be logged once per workout.')
+      alert("Each exercise may only be logged once per workout.");
     } else {
       await apiAddToLog(data);
       const reloadLog = await apiGetLogData(date);
