@@ -156,28 +156,77 @@ async function deleteExercise(model, { category, exercises }) {
 }
 
 async function addNewSet(data) {
-  console.log(data);
-
-  console.log(
-    `Set update for ${data.name} / ${data.date} requested.`
-  );
+  console.log(`New set for ${data.name} / ${data.date} requested.`);
 
   const alreadyExists = await Log.findOne({ date: data.date });
 
   if (alreadyExists) {
     const queryResponse = await Log.updateOne(
       { date: data.date },
-      { $push:
-        {
+      {
+        $push: {
           "data.$[categoryElem].exercises.$[exerciseElem].weight": data.weight,
-          "data.$[categoryElem].exercises.$[exerciseElem].reps": data.reps
-        }
+          "data.$[categoryElem].exercises.$[exerciseElem].reps": data.reps,
+        },
       },
       {
         arrayFilters: [
-          {"categoryElem.category": {$exists: true}},
-          {"exerciseElem.name": data.name}
-        ]
+          { "categoryElem.category": { $exists: true } },
+          { "exerciseElem.name": data.name },
+        ],
+      }
+    );
+  }
+}
+
+async function updateSet(data) {
+  console.log(
+    `Update set requested for ${data.date}: ${data.name} weight :${data.weight} reps:${data.reps}`
+  );
+
+  const alreadyExists = await Log.find({ date: data.date });
+  if (alreadyExists) {
+    const queryResponse = await Log.updateOne(
+      { date: data.date },
+      {
+        $set: {
+          [`data.$[categoryElem].exercises.$[exerciseElem].weight.${data.index}`]:
+            data.weight,
+          [`data.$[categoryElem].exercises.$[exerciseElem].reps.${data.index}`]:
+            data.reps,
+        },
+      },
+      {
+        arrayFilters: [
+          { "categoryElem.category": { $exists: true } },
+          { "exerciseElem.name": data.name },
+        ],
+      }
+    );
+  }
+}
+
+async function deleteSet(data) {
+  //MongoDB has no splice function so we just have to re-write the entire array
+  console.log("Deleting set " + JSON.stringify(data));
+  const alreadyExists = await Log.find({ date: data.date });
+
+  if (alreadyExists) {
+    const queryResponse = await Log.updateOne(
+      { date: data.date },
+      {
+        $set: {
+          [`data.$[categoryElem].exercises.$[exerciseElem].weight`]:
+            data.weight,
+          [`data.$[categoryElem].exercises.$[exerciseElem].reps`]:
+            data.reps,
+        },
+      },
+      {
+        arrayFilters: [
+          { "categoryElem.category": { $exists: true } },
+          { "exerciseElem.name": data.name },
+        ],
       }
     );
   }
@@ -203,4 +252,6 @@ export {
   addToLog,
   deleteFromLog,
   addNewSet,
+  updateSet,
+  deleteSet,
 };

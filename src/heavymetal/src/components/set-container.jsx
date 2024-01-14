@@ -14,10 +14,16 @@ export default function SetContainer({
   setSelectedExercise,
 }) {
   const [nextSet, setNextSet] = useState(["", ""]);
+  useEffect( () => {
+    //Reset the next set controls if the selected exercise changes.
+    setNextSet(["", ""])
+  }, [selectedExercise])
 
   //Handler functions
   async function handleNewSet() {
-    if (nextSet[0] != "" || nextSet[1] != "") {
+    if (nextSet[0] == "" || nextSet[1] == "") {
+      alert('You must enter both a weight and reps for this set.')
+    } else {
       const data = {
         date,
         name: selectedExercise.name,
@@ -65,6 +71,7 @@ export default function SetContainer({
       <Set
         key={i}
         id={i}
+        date={date}
         selectedExercise={selectedExercise}
         setSelectedExercise={setSelectedExercise}
       />
@@ -77,6 +84,9 @@ export default function SetContainer({
   if (Object.keys(selectedExercise).length > 0) {
     newSetControls = (
       <section key={"inputControls"}>
+        <div>
+          Add Set
+        </div>
         Weight
         <input
           type="text"
@@ -96,6 +106,7 @@ export default function SetContainer({
 
   return (
     <>
+      {selectedExercise.name}
       {setComponentConstructor}
       {newSetControls}
     </>

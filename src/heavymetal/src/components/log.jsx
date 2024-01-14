@@ -81,6 +81,7 @@ export default function Log({
 
   async function handleDeleteFromLog(data) {
     await apiDeleteFromLog(data);
+    setSelectedExercise({})
     await reloadLog(date);
   }
 
@@ -95,18 +96,18 @@ export default function Log({
         {log.length > 0 && exercisesForCurrentDateComponentConstructor}
       </section>
       <section>
-        <h1>Log</h1>
 
-        {/* Load the Set container here */}
+
+        {/* Load the Set container here only if an exercise has been selected */}
         {Object.keys(selectedExercise).length > 0 && (
-          <SetContainer
-            date={date}
-            selectedExercise={selectedExercise}
-            setSelectedExercise={setSelectedExercise}
-          />
+          <>
+            <SetContainer
+              date={date}
+              selectedExercise={selectedExercise}
+              setSelectedExercise={setSelectedExercise}
+            />
+          </>
         )}
-        {/* {selectedExerciseComponentConstructor.length > 0 &&
-          selectedExerciseComponentConstructor} */}
       </section>
     </>
   );

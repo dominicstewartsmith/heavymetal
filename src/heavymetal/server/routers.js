@@ -10,6 +10,8 @@ import {
   addToLog,
   deleteFromLog,
   addNewSet,
+  updateSet,
+  deleteSet
 } from "./controllers.js";
 import { Exercise, Log } from "./models.js";
 
@@ -75,5 +77,15 @@ router.delete("/delete", async (req, res) => {
     res.status(400).send("Bad");
   }
 });
+
+router.put("/updateSet", async (req, res) => {
+  await updateSet(req.body);
+  res.status(201).send('OK')
+})
+
+router.delete("/deleteSet", async (req, res) => {
+  await deleteSet(req.body);
+  res.status(201).send('OK')
+})
 
 export default router;
