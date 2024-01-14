@@ -10,8 +10,8 @@ function readMocks() {
     url.fileURLToPath(new URL(".", import.meta.url) + "./exercises.json"),
     "utf-8"
   );
-  exerciseData = JSON.parse(data);
-  return data;
+  exerciseData = JSON.parse(exerciseData);
+  return exerciseData;
 }
 
 function refreshExercises(model, data) {
@@ -122,6 +122,17 @@ async function deleteFromLog(data) {
       { $pull: { "data.$[].exercises": { name: data.name } } }
     );
   }
+
+  //Delete any categories in the db without any exercises attached
+  let emptyCategories = await Log.find({ date: data.date });
+  for (let i of emptyCategories[0].data) {
+    if (i.exercises.length === 0) {
+      await Log.updateOne(
+        { date: data.date },
+        { $pull: { data: { category: i.category } } }
+      );
+    }
+  }
 }
 
 async function createNewExercise(model, { category, exercises }) {
@@ -137,7 +148,6 @@ async function createNewExercise(model, { category, exercises }) {
     return true;
   } else {
     //It's already in the DB so reject the request
-    //TODO - bug in this function?
     console.log(
       { category, exercises },
       "already exists in database. Skipping update."
@@ -218,8 +228,7 @@ async function deleteSet(data) {
         $set: {
           [`data.$[categoryElem].exercises.$[exerciseElem].weight`]:
             data.weight,
-          [`data.$[categoryElem].exercises.$[exerciseElem].reps`]:
-            data.reps,
+          [`data.$[categoryElem].exercises.$[exerciseElem].reps`]: data.reps,
         },
       },
       {

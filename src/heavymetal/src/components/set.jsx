@@ -17,10 +17,18 @@ export default function Set({
           (type === "reps" && selectedExercise.reps[id] === 1))
       )
     ) {
-      let update = { ...selectedExercise };
-      action == "+" ? (update[type][id] += qty) : (update[type][id] -= qty);
+      if (
+        type === "weight" &&
+        action === "-" &&
+        selectedExercise.weight[id] - 2.5 < 0
+      ) {
+        alert("This would make the weight negative.");
+      } else {
+        let update = { ...selectedExercise };
+        action == "+" ? (update[type][id] += qty) : (update[type][id] -= qty);
 
-      setSelectedExercise(update);
+        setSelectedExercise(update);
+      }
     }
   }
 
@@ -69,8 +77,8 @@ export default function Set({
           min="0"
           onChange={(e) => handleChange(e, "weight")}
         />
-        <button onClick={() => handleClick("+", 1, "weight")}>+</button>
-        <button onClick={() => handleClick("-", 1, "weight")}>-</button>
+        <button onClick={() => handleClick("+", 2.5, "weight")}>+</button>
+        <button onClick={() => handleClick("-", 2.5, "weight")}>-</button>
         Reps
         <input
           type="text"

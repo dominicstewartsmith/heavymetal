@@ -127,6 +127,7 @@ export default function Exercises({ date, log, setLog }) {
 
       {/* Creates the list of exercises per selected category */}
       <div>
+        {currentCategory != "" && currentCategory}
         <ul>
           {displayData.map((item) => {
             return (
