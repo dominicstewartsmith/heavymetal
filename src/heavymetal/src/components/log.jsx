@@ -1,16 +1,12 @@
-import { CgArrowLeftR } from "react-icons/cg";
-import { CgArrowRightR } from "react-icons/cg";
-import { FiMinusSquare } from "react-icons/fi";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  apiGetExerciseData,
   apiGetLogData,
-  apiDeleteFromLog,
-  apiAddNewSet,
+  apiDeleteFromLog
 } from "../apiService";
 
 import SetContainer from "./set-container";
+
+import './css/log.css'
 
 export default function Log({
   date,
@@ -30,7 +26,9 @@ export default function Log({
       return (
         <div key={item.name}>
           <button className="log-controller-delete" onClick={() => handleDeleteFromLog({ date, name: item.name })}>-</button>
-          <button className="log-controller-selector" onClick={handleSelectedExercise}>{item.name}</button>
+          {/* <button className="log-exercise-moveup">▲</button>
+          <button className="log-exercise-movedown">▼</button> */}
+          <button className="log-exercise-selector" onClick={handleSelectedExercise}>{item.name}</button>
         </div>
       );
     });
@@ -74,6 +72,7 @@ export default function Log({
     }
   }
 
+
   async function handleDeleteFromLog(data) {
     await apiDeleteFromLog(data);
     setSelectedExercise({})
@@ -98,7 +97,14 @@ export default function Log({
         </div>
       }
 
-      {log.length > 0 && exercisesForCurrentDateComponentConstructor}
+      {log.length > 0 &&
+      <div className="log-exercises">
+        {exercisesForCurrentDateComponentConstructor}
+        {/* <div className="log-save-container">
+          <button className="log-save">Save</button>
+          <input className="log-save-name" type="text" readOnly={true} />
+        </div> */}
+      </div>}
 
 
       <div>

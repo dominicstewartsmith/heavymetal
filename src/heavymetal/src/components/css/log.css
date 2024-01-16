@@ -1,0 +1,83 @@
+.log-date-controls {
+  font-size: 20px;
+  border: none;
+  padding-bottom: 25px;
+}
+
+.log-date-input {
+  text-align: center;
+  border: inherit;
+  font-size: inherit;
+}
+
+.log-date-plus,
+.log-date-minus,
+.log-date-today {
+  text-align: center;
+  border: inherit;
+  font-size: inherit;
+}
+
+.log-date-plus:active {
+  transform: translateX(3px);
+}
+
+.log-date-minus:active {
+  transform: translateX(-3px);
+}
+
+.log-date-today:active {
+  transform: translateY(3px);
+}
+
+.log-exercises button:active {
+  transform: translateY(1px);
+  background-color: aquamarine;
+}
+
+.log-exercise-selector {
+  width: 80%;
+  background-color: white;
+  color: black;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: none;
+
+  box-shadow: 1px 2px 2px black;
+}
+
+.log-exercise-moveup, .log-exercise-movedown {
+  border: none;
+  background-color: white;
+  color: black;
+  box-shadow: 1px 2px 2px black;
+}
+
+.log-controller-selector:active {
+  background-color: aquamarine;
+  transform: translateX(1px);
+}
+
+.log-controller-delete {
+  box-shadow: 1px 2px 2px black;
+  border: none;
+  background-color: white;
+  color: black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 15%;
+}
+
+.log-save-container {
+  border: 1px solid white;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+
+.log-save {
+  width: 15%;
+}
+
+.log-save-name {
+  width: 85%;
+}

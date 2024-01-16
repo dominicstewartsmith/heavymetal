@@ -1,4 +1,6 @@
 import { apiUpdateSet, apiDeleteSet, apiAddNewSet } from "../apiService";
+import './css/set.css'
+
 
 export default function Set({
   date,

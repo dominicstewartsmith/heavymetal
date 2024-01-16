@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import Set from "./set";
 import { apiAddNewSet, apiGetLogData } from "../apiService";
+
+import './css/set.css'
+
 //Component holds the display per set, and the new set adder
 
 /*

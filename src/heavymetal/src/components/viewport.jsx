@@ -34,8 +34,6 @@ export default function ViewPort() {
 
       if (logForCurrentDate.length > 0) setLog(logForCurrentDate[0].data)
       else setLog([])
-
-      //setLog(result[0].data);
     }
 
     loadLog();

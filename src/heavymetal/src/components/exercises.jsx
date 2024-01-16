@@ -7,6 +7,8 @@ import {
 } from "../apiService";
 import { useState, useEffect } from "react";
 
+import './css/exercises.css'
+
 export default function Exercises({ date, log, setLog }) {
   const [allData, setAllData] = useState([]);
   const [displayData, setDisplayData] = useState([]);
