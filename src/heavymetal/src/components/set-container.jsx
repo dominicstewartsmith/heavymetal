@@ -68,13 +68,15 @@ export default function SetContainer({
   let setComponentConstructor = [];
   for (let i = 0; i < selectedExercise.reps.length; i++) {
     setComponentConstructor.push(
-      <Set
-        key={i}
-        id={i}
-        date={date}
-        selectedExercise={selectedExercise}
-        setSelectedExercise={setSelectedExercise}
-      />
+      <>
+        <Set
+          key={i}
+          id={i}
+          date={date}
+          selectedExercise={selectedExercise}
+          setSelectedExercise={setSelectedExercise}
+        />
+      </>
     );
   }
 
@@ -84,27 +86,36 @@ export default function SetContainer({
   if (Object.keys(selectedExercise).length > 0) {
     newSetControls = (
       <section key={"inputControls"}>
+        <div className="set-new-container">
         <div>Add Set</div>
-        Weight
+        <span className="set-new-weight-title">Weight (KG)</span>
         <input
+          className="set-new-weight-input"
           type="text"
           value={nextSet[0]}
           onChange={(e) => handleNewSetChange(e, 0)}
-        ></input>
-        Reps
+        />
+        <button className="set-new-weight-plus">+</button>
+        <button className="set-new-weight-minus">-</button>
+        <span className="set-new-reps-title">Reps</span>
         <input
+          className="set-new-reps-input"
           type="text"
           value={nextSet[1]}
           onChange={(e) => handleNewSetChange(e, 1)}
         ></input>
-        <button onClick={handleNewSet}>Save Set</button>
+        <button className="set-new-save" onClick={handleNewSet}>Save Set</button>
+        <button className="set-new-reps-plus">+</button>
+        <button className="set-new-reps-minus">-</button>
+        </div>
       </section>
     );
   }
 
   return (
     <>
-      {selectedExercise.name}
+      <p className="set-exerciseName">{selectedExercise.name}</p>
+      <br />
       {setComponentConstructor}
       {newSetControls}
     </>

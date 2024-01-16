@@ -1,3 +1,7 @@
+import { CgArrowLeftR } from "react-icons/cg";
+import { CgArrowRightR } from "react-icons/cg";
+import { FiMinusSquare } from "react-icons/fi";
+
 import { useEffect, useState } from "react";
 import {
   apiGetExerciseData,
@@ -25,17 +29,8 @@ export default function Log({
     exercisesForCurrentDate.map((item) => {
       return (
         <div key={item.name}>
-          <button
-            onClick={() =>
-              handleDeleteFromLog({
-                date,
-                name: item.name,
-              })
-            }
-          >
-            -
-          </button>
-          <button onClick={handleSelectedExercise}>{item.name}</button>
+          <button className="log-controller-delete" onClick={() => handleDeleteFromLog({ date, name: item.name })}>-</button>
+          <button className="log-controller-selector" onClick={handleSelectedExercise}>{item.name}</button>
         </div>
       );
     });
@@ -87,20 +82,30 @@ export default function Log({
 
   return (
     <>
-      <button onClick={() => handleDateClick("-")}>-</button>
-      <input type="date" value={date} onChange={handleDateChange} />
-      <button onClick={() => handleDateClick("+")}>+</button>
-      <button onClick={() => handleDateClick("=")}>Today</button>
-      <section>
-        <h1>Lifts</h1>
-        {log.length > 0 && exercisesForCurrentDateComponentConstructor}
-      </section>
-      <section>
+      <div className="log-date-controls">
+        <button className="log-date-minus" onClick={() => handleDateClick("-")} >&lt;</button>
+        <input className="log-date-input" type="date" value={date} onChange={handleDateChange} />
+        <button className="log-date-plus" onClick={() => handleDateClick("+")} >&gt;</button>
+        <button className="log-date-today" onClick={() => handleDateClick("=")} >Today</button>
+      </div>
+
+      {
+        log.length == 0 &&
+        <div>
+          <p>Nothing logged yet.</p>
+          <br />
+          <p>Select exercises from the management page.</p>
+        </div>
+      }
+
+      {log.length > 0 && exercisesForCurrentDateComponentConstructor}
 
 
+      <div>
         {/* Load the Set container here only if an exercise has been selected */}
         {Object.keys(selectedExercise).length > 0 && (
           <>
+          <br />
             <SetContainer
               date={date}
               selectedExercise={selectedExercise}
@@ -108,7 +113,7 @@ export default function Log({
             />
           </>
         )}
-      </section>
+      </div>
     </>
   );
 }

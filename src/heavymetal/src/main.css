@@ -6,8 +6,11 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  background-color: grey;
+  background-color: rgb(82, 120, 209);
   color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 12px;
   /* border: 1px solid blue; */
 }
 
@@ -16,24 +19,22 @@
 /* mobile styles */
 
 /* small tablet */
-@media screen and (min-width: 620px){
-
-}
+@media screen and (min-width: 620px) {}
 
 /* large tablet / laptop */
-@media screen and (min-width: 960px){
-
-}
+@media screen and (min-width: 960px) {}
 
 /* desktops */
-@media screen and (min-width: 1200px) {
-
-}
+@media screen and (min-width: 1200px) {}
 
 .app-wrapper {
   display: flex;
   flex-direction: row;
   height: 100vh;
+}
+
+.viewport {
+  margin-top: 25px;
 }
 
 .side-panel {
@@ -42,16 +43,320 @@
   flex-direction: column;
   align-content: flex-start;
   width: 100px;
+  border-right: black solid 1px;
+  margin-right: 25px;
 }
 
-.side-panel-nav {
+.side-panel-container {
+  margin: 15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-start;
   height: 250px;
+  justify-content: center;
+}
+
+.side-panel-log,
+.side-panel-mgmt {
+  font-size: 45px;
+}
+
+.side-panel-text {
+  margin-bottom: 25px;
+  font-size: 12px;
+}
+
+.side-panel-log:active,
+.side-panel-mgmt:active {
+  transform: translateY(3px);
+}
+
+.log-date-controls {
+  font-size: 20px;
+  border: none;
+  padding-bottom: 25px;
+}
+
+.log-date-input {
+  text-align: center;
+  border: inherit;
+  font-size: inherit;
+}
+
+.log-date-plus,
+.log-date-minus,
+.log-date-today {
+  text-align: center;
+  border: inherit;
+  font-size: inherit;
+}
+
+.log-date-plus:active {
+  transform: translateX(3px);
+}
+
+.log-date-minus:active {
+  transform: translateX(-3px);
+}
+
+.log-date-today:active {
+  transform: translateY(3px);
+}
+
+.log-controller-selector {
+  width: 80%;
+  background-color: white;
+  color: black;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: none;
+
+  box-shadow: 1px 2px 2px black;
+}
+
+.log-controller-selector:active {
+  background-color: aquamarine;
+  transform: translateX(1px);
+}
+
+.log-controller-delete {
+  box-shadow: 1px 2px 2px black;
+  border: none;
+  background-color: white;
+  color: black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 15%;
+}
+
+.mgmt-category {
+  width: 91%;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  border: none;
+
+  box-shadow: 1px 2px 2px black;
+}
+
+.mgmt-currentCategory {
+  text-decoration: underline;
+  margin-bottom: 15px;
+}
+
+.mgmt-exercise-delete {
+  border: none;
+  background-color: white;
+  color: black;
+
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 1px 2px 2px black;
+}
+
+.mgmt-exercise-log {
+  border: none;
+  background-color: white;
+  color: black;
+  box-shadow: 1px 2px 2px black;
+}
+
+.mgmt-exercise-name {
+  text-align: left;
+  display: inline-block;
+  width: 85%;
+  background-color: white;
+  color: black;
+  border: 1px solid white;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 1px 2px 2px black;
+
+}
+
+.mgmt-category:active,
+.mgmt-exercise-delete:active,
+.mgmt-exercise-log:active,
+.mgmt-exercise-name:active {
+  background-color: aquamarine;
+  transform: translateX(1px);
+}
+
+.mgmt-exercise-newInput {
+  color: black;
+  background-color: white;
+  border: none;
+  width: 225px;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 1px 2px 2px black;
+}
+
+.mgmt-exercise-newCreate {
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 15px 0 0 15px;
+  box-shadow: 1px 2px 2px black;
+}
+
+.set-new-container {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px;
+  grid-template-rows: 25px 25px 25px;
+  width: fit-content;
+  text-align: center;
+}
+
+.set-new-weight-input {
+  border: none;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+
+  text-align: center;
+  grid-row: 2;
+  grid-column: span 2;
+  border-radius: 15px 0 0 0;
+}
+
+.set-new-weight-plus {
+  border: none;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 2;
+}
+
+.set-new-weight-minus {
+  border: none;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 1;
+  border-radius: 0 0 0 15px;
+}
+
+.set-new-reps-input {
+  border: none;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+
+  text-align: center;
+  grid-row: 2;
+  grid-column: 3 / span 2;
+  border-radius: 0 15px 0 0;
+}
+
+.set-new-reps-minus {
+  border: none;
+  border-bottom: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 3;
+}
+
+.set-new-reps-plus {
+  border: none;
+
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 4;
+  border-radius: 0 0 15px 0;
+}
+
+.set-new-save {
+  background-color: black;
 }
 
 .viewport {
   width: 100%;
+}
+
+.set-exerciseName {
+  text-decoration: underline;
+}
+
+.set-container {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px;
+  grid-template-rows: 25px 25px 25px;
+  width: fit-content;
+  text-align: center;
+}
+
+.set-weight-title {
+  grid-row: 1;
+  grid-column: span 2;
+}
+
+.set-reps-title {
+  grid-row: 1;
+  grid-column: 3 / span 4;
+}
+
+.set-weight-input {
+  border: none;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+
+  text-align: center;
+  grid-row: 2;
+  grid-column: span 2;
+  border-radius: 15px 0 0 0;
+}
+
+.set-weight-minus {
+  border: none;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 1;
+  border-radius: 0 0 0 15px;
+}
+
+.set-weight-plus {
+  border: none;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 2;
+
+}
+
+.set-reps-input {
+  border: none;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+
+  text-align: center;
+  grid-row: 2;
+  grid-column: 3 / span 2;
+  border-radius: 0 15px 0 0;
+}
+
+.set-reps-minus {
+  border: none;
+  border-bottom: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 3;
+}
+
+.set-reps-plus {
+  border: none;
+
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+
+  grid-row: 3;
+  grid-column: 4;
+  border-radius: 0 0 15px 0;
+
 }

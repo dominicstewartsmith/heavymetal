@@ -8,7 +8,7 @@ export default function Set({
 }) {
   //Component to render each set of the current exercise
 
-  function handleClick(action, qty, type) {
+  async function handleClick(action, qty, type) {
     // If the action request is to decrement, and either the weight is 0 or reps are at 1, do nothing.
     if (
       !(
@@ -28,6 +28,10 @@ export default function Set({
         action == "+" ? (update[type][id] += qty) : (update[type][id] -= qty);
 
         setSelectedExercise(update);
+
+        //send API
+        const payload = { date, index: id, name: selectedExercise.name, weight: selectedExercise.weight[id], reps: selectedExercise.reps[id] }
+        await apiUpdateSet(payload)
       }
     }
   }
@@ -69,26 +73,28 @@ export default function Set({
 
   return (
     <>
-      <div>
-        Weight
+      <div className="set-container">
+        {/* <button className="asdf" onClick={handleRemoveSet}>Remove Set</button> */}
+        <span className="set-weight-title">Weight (KG)</span>
         <input
+          className="set-weight-input"
           type="text"
           value={selectedExercise.weight[id]}
           min="0"
           onChange={(e) => handleChange(e, "weight")}
         />
-        <button onClick={() => handleClick("+", 2.5, "weight")}>+</button>
-        <button onClick={() => handleClick("-", 2.5, "weight")}>-</button>
-        Reps
+        <button className="set-weight-plus" onClick={() => handleClick("+", 2.5, "weight")}>+</button>
+        <button className="set-weight-minus" onClick={() => handleClick("-", 2.5, "weight")}>-</button>
+        <span className="set-reps-title">Reps</span>
         <input
+          className="set-reps-input"
           type="text"
           value={selectedExercise.reps[id]}
           min="1"
           onChange={(e) => handleChange(e, "reps")}
         />
-        <button onClick={() => handleClick("+", 1, "reps")}>+</button>
-        <button onClick={() => handleClick("-", 1, "reps")}>-</button>
-        <button onClick={handleRemoveSet}>Remove Set</button>
+        <button className="set-reps-plus" onClick={() => handleClick("+", 1, "reps")}>+</button>
+        <button className="set-reps-minus" onClick={() => handleClick("-", 1, "reps")}>-</button>
       </div>
     </>
   );

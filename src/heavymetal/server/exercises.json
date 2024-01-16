@@ -2,6 +2,6 @@
   {"category": "Chest", "exercises": ["Barbell Bench Press", "Dumbbell Bench Press", "Dumbbell Flye", "Push Up", "Parallel Dip", "Incline Dumbbell Press", "Incline Barbell Bench Press"]},
   {"category": "Back", "exercises": ["Chin Up", "Pull Up", "Barbell Row", "Lat Pulldown", "Seated Cable Row"]},
   {"category": "Shoulders", "exercises": ["Barbell Overhead Press", "Seated Dumbbell Press", "Lateral Raise", "Facepulls", "Rear Delt Flye", "Plate Loaded Shoulder Press"]},
-  {"category": "Legs", "exercises": ["Barbell Squat", "Leg Press", "Dumbbell Lunge", "Deadlift", "Romanian Deadlift", "Reverse Dumbbell Lunge", "Reverse Barbell Lunge", "Leg Extension", "Leg Press"]},
+  {"category": "Legs", "exercises": ["Barbell Squat", "Dumbbell Lunge", "Deadlift", "Romanian Deadlift", "Reverse Dumbbell Lunge", "Reverse Barbell Lunge", "Leg Extension", "Leg Press"]},
   {"category": "Arms", "exercises": ["Dumbbell Curl", "Barbell Curl", "Skullcrushers", "Rope Pushdown", "Straight-Arm Pushdown", "Concentration Curl", "Hammer Curl", "Lying Triceps Extension"]}
 ]

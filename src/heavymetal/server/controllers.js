@@ -5,6 +5,7 @@ import { Log } from "./models.js";
 //TODO Prevent requests with undefined exercises
 //TODO Prevent requests with non Latin chars
 
+
 function readMocks() {
   let exerciseData = readFileSync(
     url.fileURLToPath(new URL(".", import.meta.url) + "./exercises.json"),
@@ -115,6 +116,7 @@ async function deleteFromLog(data) {
   );
 
   const alreadyExists = await Log.find({ date: data.date });
+  console.log(alreadyExists)
 
   if (alreadyExists) {
     const queryResponse = await Log.updateOne(
@@ -190,9 +192,8 @@ async function addNewSet(data) {
 }
 
 async function updateSet(data) {
-  console.log(
-    `Update set requested for ${data.date}: ${data.name} weight :${data.weight} reps:${data.reps}`
-  );
+  console.time('Updated in: ')
+  console.log('Set update requested', data)
 
   const alreadyExists = await Log.find({ date: data.date });
   if (alreadyExists) {
@@ -214,6 +215,8 @@ async function updateSet(data) {
       }
     );
   }
+
+  console.timeEnd('Updated in: ')
 }
 
 async function deleteSet(data) {

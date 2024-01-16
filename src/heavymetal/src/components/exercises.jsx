@@ -118,7 +118,7 @@ export default function Exercises({ date, log, setLog }) {
       {allData.map((item) => {
         return (
           <div key={item._id}>
-            <button onClick={() => handleCategory(item.category)}>
+            <button onClick={() => handleCategory(item.category)} className="mgmt-category">
               {item.category}
             </button>
           </div>
@@ -127,36 +127,37 @@ export default function Exercises({ date, log, setLog }) {
 
       {/* Creates the list of exercises per selected category */}
       <div>
-        {currentCategory != "" && currentCategory}
-        <ul>
+        <br />
+        {currentCategory != "" && <div className="mgmt-currentCategory">{currentCategory}</div>}
+        <div>
           {displayData.map((item) => {
             return (
-              <li key={item}>
-                {item}
-                <button
-                  onClick={() =>
-                    handleAddToLog({
-                      date,
-                      category: currentCategory,
-                      name: item,
-                    })
-                  }
-                >
-                  Add to log
-                </button>
-                <button onClick={() => handleDeleteExercise(item)}>
-                  Delete from database
-                </button>
-              </li>
+              // <p key={item}>
+              //     <div className="mgmt-exercise-name">{item}</div>
+              //     <button className="mgmt-exercise-addToLog" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>
+              //       Log
+              //     </button>
+              //     <button onClick={() => handleDeleteExercise(item)} className="mgmt-exercise-delete">
+              //       Delete
+              //     </button>
+              // </p>
+
+              <div>
+                <button className="mgmt-exercise-delete" onClick={() => handleDeleteExercise(item)}>-</button>
+                {/* <button className="mgmt-exercise-log" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>Log</button> */}
+                <span className="mgmt-exercise-name" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>Log {item}</span>
+              </div>
             );
           })}
-        </ul>
+        </div>
 
         {/* Conditionally render the ability to create a new exercise */}
         {displayData.length > 0 && (
           <>
+          <br />
             <button
               onClick={() => handleCreateExercise(currentCategory, newExercise)}
+              className="mgmt-exercise-newCreate"
             >
               Create
             </button>
@@ -164,6 +165,8 @@ export default function Exercises({ date, log, setLog }) {
               type="text"
               value={newExercise}
               onChange={handleChange}
+              maxLength="27"
+              className="mgmt-exercise-newInput"
             ></input>
           </>
         )}

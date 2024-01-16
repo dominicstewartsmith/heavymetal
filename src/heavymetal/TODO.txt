@@ -1,0 +1,2 @@
+When adding a new exercise to the database, make it immediately show up in the exercise list.
+If there is nothing in the exercise DB, refresh it.
