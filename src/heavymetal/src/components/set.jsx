@@ -1,4 +1,4 @@
-import { apiUpdateSet, apiDeleteSet } from "../apiService";
+import { apiUpdateSet, apiDeleteSet, apiAddNewSet } from "../apiService";
 
 export default function Set({
   date,
@@ -71,10 +71,28 @@ export default function Set({
     });
   }
 
+  async function handleCopySet() {
+      const data = {
+        date,
+        name: selectedExercise.name,
+        weight: selectedExercise.weight[id],
+        reps: selectedExercise.reps[id],
+      };
+      //Send update to server
+      await apiAddNewSet(data);
+      //Update selectedExercise with new set to re-render the list of sets
+      const update = { ...selectedExercise };
+      update.weight.push(selectedExercise.weight[id]);
+      update.reps.push(selectedExercise.reps[id]);
+      setSelectedExercise(update);
+  }
+
   return (
     <>
+    <div className="flextest">
       <div className="set-container">
-        {/* <button className="asdf" onClick={handleRemoveSet}>Remove Set</button> */}
+        <button className="set-remove" onClick={handleRemoveSet}>Remove</button>
+        <button className="set-copy" onClick={handleCopySet}>Copy</button>
         <span className="set-weight-title">Weight (KG)</span>
         <input
           className="set-weight-input"
@@ -96,6 +114,8 @@ export default function Set({
         <button className="set-reps-plus" onClick={() => handleClick("+", 1, "reps")}>+</button>
         <button className="set-reps-minus" onClick={() => handleClick("-", 1, "reps")}>-</button>
       </div>
+
+    </div>
     </>
   );
 }

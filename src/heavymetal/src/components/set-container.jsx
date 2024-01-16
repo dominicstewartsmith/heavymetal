@@ -13,10 +13,10 @@ export default function SetContainer({
   selectedExercise,
   setSelectedExercise,
 }) {
-  const [nextSet, setNextSet] = useState(["", ""]);
+  const [nextSet, setNextSet] = useState([0,0]);
   useEffect(() => {
     //Reset the next set controls if the selected exercise changes.
-    setNextSet(["", ""]);
+    setNextSet([0,0]);
   }, [selectedExercise]);
 
   //Handler functions
@@ -87,26 +87,25 @@ export default function SetContainer({
     newSetControls = (
       <section key={"inputControls"}>
         <div className="set-new-container">
-        <div>Add Set</div>
-        <span className="set-new-weight-title">Weight (KG)</span>
-        <input
-          className="set-new-weight-input"
-          type="text"
-          value={nextSet[0]}
-          onChange={(e) => handleNewSetChange(e, 0)}
-        />
-        <button className="set-new-weight-plus">+</button>
-        <button className="set-new-weight-minus">-</button>
-        <span className="set-new-reps-title">Reps</span>
-        <input
-          className="set-new-reps-input"
-          type="text"
-          value={nextSet[1]}
-          onChange={(e) => handleNewSetChange(e, 1)}
-        ></input>
-        <button className="set-new-save" onClick={handleNewSet}>Save Set</button>
-        <button className="set-new-reps-plus">+</button>
-        <button className="set-new-reps-minus">-</button>
+          <button className="set-new-save" onClick={handleNewSet}>Save</button>
+          <span className="set-new-weight-title">Weight (KG)</span>
+          <input
+            className="set-new-weight-input"
+            type="text"
+            value={nextSet[0]}
+            onChange={(e) => handleNewSetChange(e, 0)}
+          />
+          <button className="set-new-weight-plus" onClick={() => {setNextSet(()=> {return [nextSet[0]+2.5, nextSet[1]]})}}>+</button>
+          <button className="set-new-weight-minus" onClick={() => {setNextSet(()=> {return [nextSet[0]-2.5, nextSet[1]]})}}>-</button>
+          <span className="set-new-reps-title">Reps</span>
+          <input
+            className="set-new-reps-input"
+            type="text"
+            value={nextSet[1]}
+            onChange={(e) => handleNewSetChange(e, 1)}
+          ></input>
+          <button className="set-new-reps-plus" onClick={() => {setNextSet(()=> {return [nextSet[0], nextSet[1]+1]})}}>+</button>
+          <button className="set-new-reps-minus" onClick={() => {setNextSet(()=> {return [nextSet[0], nextSet[1]-1]})}}>-</button>
         </div>
       </section>
     );

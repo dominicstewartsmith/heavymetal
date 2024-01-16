@@ -132,20 +132,9 @@ export default function Exercises({ date, log, setLog }) {
         <div>
           {displayData.map((item) => {
             return (
-              // <p key={item}>
-              //     <div className="mgmt-exercise-name">{item}</div>
-              //     <button className="mgmt-exercise-addToLog" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>
-              //       Log
-              //     </button>
-              //     <button onClick={() => handleDeleteExercise(item)} className="mgmt-exercise-delete">
-              //       Delete
-              //     </button>
-              // </p>
-
-              <div>
+              <div key={item}>
                 <button className="mgmt-exercise-delete" onClick={() => handleDeleteExercise(item)}>-</button>
-                {/* <button className="mgmt-exercise-log" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>Log</button> */}
-                <span className="mgmt-exercise-name" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>Log {item}</span>
+                <button className="mgmt-exercise-name" onClick={() => handleAddToLog({date, category: currentCategory, name: item})}>Log {item}</button>
               </div>
             );
           })}
@@ -155,12 +144,7 @@ export default function Exercises({ date, log, setLog }) {
         {displayData.length > 0 && (
           <>
           <br />
-            <button
-              onClick={() => handleCreateExercise(currentCategory, newExercise)}
-              className="mgmt-exercise-newCreate"
-            >
-              Create
-            </button>
+            <button className="mgmt-exercise-newCreate" onClick={() => handleCreateExercise(currentCategory, newExercise)}>Create</button>
             <input
               type="text"
               value={newExercise}
