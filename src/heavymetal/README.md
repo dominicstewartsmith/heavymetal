@@ -24,5 +24,5 @@ Navigate back to the 'daily workout log', select the exercise you want to track 
 
 That's it! Everything is automatically saved to the database on interaction. 💪🏻
 
-
-
+![alt text](mgmt.png)
+![alt text](log.png)
