@@ -8,3 +8,8 @@ Heavymetal is straight to the point, and achieves the intended functionality.
 
 # Instructions
 
+To run this app you will need [MongoDB](https://www.mongodb.com/) running on your local machine.
+
+Run `npm i` from the server and src folder.
+Run `node index.js` from the server folder.
+Run `npm run dev` from the src folder
