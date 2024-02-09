@@ -23,3 +23,6 @@ Once you have chosen the date, navigate to the exercise management page from the
 Navigate back to the 'daily workout log', select the exercise you want to track and use the controls to save your sets & reps.
 
 That's it! Everything is automatically saved to the database on interaction. 💪🏻
+
+![alt text](mgmt.png)
+![alt text](log.png)
